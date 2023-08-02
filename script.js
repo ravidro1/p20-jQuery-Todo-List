@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  const container = $("#list");
+  const container = $("#list-container");
   const itemTemplate = $("#item-template")[0];
   const addButton = $("#add-button");
   const newTaskInput = $("#new-task-input");
@@ -56,6 +56,7 @@ $(document).ready(() => {
 
       const checkedElement = itemElement.querySelector(".item-checkbox");
       const descriptionElement = itemElement.querySelector(".item-text");
+      const editInputElement = itemElement.querySelector(".item-edit-input");
       const editButtonElement = itemElement.querySelector(".item-edit-button");
       const deleteButtonElement = itemElement.querySelector(
         ".item-delete-button"
@@ -66,16 +67,43 @@ $(document).ready(() => {
 
       checkedElement.onchange = (e) => {
         const isChecked = e.target.checked;
-        updateDate(item, "checked", isChecked);
+        updateItem(item, "checked", isChecked);
       };
 
+      let isInEditMode = false;
+      let editInputValue = "";
+
       editButtonElement.onclick = () => {
-        editItem();
+        isInEditMode = !isInEditMode;
+
+        if (isInEditMode) {
+          $(descriptionElement).css({ display: "none" });
+          $(editInputElement).css({ display: "block" });
+          $(editInputElement).on("input", (e) => {
+            editInputValue = e.target.value;
+          });
+        } else {
+          $(descriptionElement).css({ display: "block" });
+          $(editInputElement).css({ display: "none" });
+          if (editInputValue) {
+            updateItem(item, "description", editInputValue);
+          }
+
+          editInputValue = "";
+          $(editInputElement).empty();
+        }
+
+        $(editInputElement).val(item.description);
+        console.log(isInEditMode);
       };
 
       deleteButtonElement.onclick = () => {
         deleteItem(index);
       };
+
+      if (item.checked) {
+        $(descriptionElement).css({ "text-decoration-line": "line-through" });
+      }
 
       container.append(itemElement);
     });
@@ -88,11 +116,10 @@ $(document).ready(() => {
   }
 
   function editItem(item) {
-    descriptionElement.innerHTML = 0;
-    updateDate(item, "", "");
+    updateItem(item, "", "");
   }
 
-  function updateDate(item, key, value) {
+  function updateItem(item, key, value) {
     item[key] = value;
     setItems(items);
     refreshList();

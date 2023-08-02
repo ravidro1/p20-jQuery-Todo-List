@@ -16,18 +16,11 @@
     <input id="new-task-input" type="text" placeholder="New Task..." />
     <button id="add-button">Add Task</button>
 
-    <div id="list">
-      <ul>
-        <li>todo 1</li>
-        <li>todo 2</li>
-        <li>todo 3</li>
-        <li>todo 4</li>
-        <li>todo 5</li>
-      </ul>
-    </div>
+    <div id="list-container"></div>
     <template id="item-template">
       <div class="item">
         <input type="checkbox" class="item-checkbox" />
+        <input style="display: none" type="text" class="item-edit-input" />
         <p class="item-text"></p>
         <button class="item-edit-button">Edit</button>
         <button class="item-delete-button">Delete</button>
