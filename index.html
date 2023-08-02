@@ -5,13 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>jQuery TODO List</title>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-latest.min.js"
+    ></script>
     <script src="script.js" defer></script>
   </head>
   <body>
     <h1>TODO List</h1>
-    <input type="text" />
-    <button>Add Task</button>
-    <div class="list">
+    <input id="new-task-input" type="text" placeholder="New Task..." />
+    <button id="add-button">Add Task</button>
+
+    <div id="list">
       <ul>
         <li>todo 1</li>
         <li>todo 2</li>
@@ -20,5 +25,13 @@
         <li>todo 5</li>
       </ul>
     </div>
+    <template id="item-template">
+      <div class="item">
+        <input type="checkbox" class="item-checkbox" />
+        <p class="item-text"></p>
+        <button class="item-edit-button">Edit</button>
+        <button class="item-delete-button">Delete</button>
+      </div>
+    </template>
   </body>
 </html>
