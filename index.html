@@ -13,10 +13,23 @@
   </head>
   <body>
     <h1>TODO List</h1>
+    <input id="new-list-input" type="text" placeholder="New List..." />
+    <button id="add-list-button">Add List</button>
+    <br />
     <input id="new-task-input" type="text" placeholder="New Task..." />
-    <button id="add-button">Add Task</button>
+    <button id="add-task-button">Add Task</button>
 
-    <div id="list-container"></div>
+    <div id="lists-container"></div>
+    <div id="tasks-container"></div>
+    <template id="list-template">
+      <div class="list">
+        <p class="list-text"></p>
+        <input style="display: none" type="text" class="list-edit-input" />
+        <button class="list-edit-button">Edit</button>
+        <button class="list-delete-button">Delete</button>
+      </div>
+    </template>
+
     <template id="item-template">
       <div class="item">
         <input type="checkbox" class="item-checkbox" />
