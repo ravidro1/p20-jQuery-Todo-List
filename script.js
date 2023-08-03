@@ -46,66 +46,66 @@ $(document).ready(() => {
   //     refreshList();
   //   }
 
-  //   function refreshList() {
-  //     tasksContainer.empty();
+  function renderTasks(list) {
+    tasksContainer.empty();
 
-  //     items.forEach((item, index) => {
-  //       const itemElement = itemTemplate.content.cloneNode(true);
+    list.list.forEach((item, index) => {
+      const itemElement = itemTemplate.content.cloneNode(true);
 
-  //       const checkedElement = itemElement.querySelector(".item-checkbox");
-  //       const descriptionElement = itemElement.querySelector(".item-text");
-  //       const editInputElement = itemElement.querySelector(".item-edit-input");
-  //       const editButtonElement = itemElement.querySelector(".item-edit-button");
-  //       const deleteButtonElement = itemElement.querySelector(
-  //         ".item-delete-button"
-  //       );
+      const checkedElement = itemElement.querySelector(".item-checkbox");
+      const descriptionElement = itemElement.querySelector(".item-text");
+      const editInputElement = itemElement.querySelector(".item-edit-input");
+      const editButtonElement = itemElement.querySelector(".item-edit-button");
+      const deleteButtonElement = itemElement.querySelector(
+        ".item-delete-button"
+      );
 
-  //       checkedElement.checked = item.checked;
-  //       descriptionElement.innerText = item.description;
+      checkedElement.checked = item.checked;
+      descriptionElement.innerText = item.description;
 
-  //       checkedElement.onchange = (e) => {
-  //         const isChecked = e.target.checked;
-  //         updateItem(item, "checked", isChecked);
-  //       };
+      checkedElement.onchange = (e) => {
+        const isChecked = e.target.checked;
+        updateItem(item, "checked", isChecked);
+      };
 
-  //       let isInEditMode = false;
-  //       let editInputValue = "";
+      let isInEditMode = false;
+      let editInputValue = "";
 
-  //       editButtonElement.onclick = () => {
-  //         isInEditMode = !isInEditMode;
+      editButtonElement.onclick = () => {
+        isInEditMode = !isInEditMode;
 
-  //         if (isInEditMode) {
-  //           $(descriptionElement).css({ display: "none" });
-  //           $(editInputElement).css({ display: "block" });
-  //           $(editInputElement).on("input", (e) => {
-  //             editInputValue = e.target.value;
-  //           });
-  //         } else {
-  //           $(descriptionElement).css({ display: "block" });
-  //           $(editInputElement).css({ display: "none" });
-  //           if (editInputValue) {
-  //             updateItem(item, "description", editInputValue);
-  //           }
+        if (isInEditMode) {
+          $(descriptionElement).css({ display: "none" });
+          $(editInputElement).css({ display: "block" });
+          $(editInputElement).on("input", (e) => {
+            editInputValue = e.target.value;
+          });
+        } else {
+          $(descriptionElement).css({ display: "block" });
+          $(editInputElement).css({ display: "none" });
+          if (editInputValue) {
+            updateItem(item, "description", editInputValue);
+          }
 
-  //           editInputValue = "";
-  //           $(editInputElement).empty();
-  //         }
+          editInputValue = "";
+          $(editInputElement).empty();
+        }
 
-  //         $(editInputElement).val(item.description);
-  //         console.log(isInEditMode);
-  //       };
+        $(editInputElement).val(item.description);
+        console.log(isInEditMode);
+      };
 
-  //       deleteButtonElement.onclick = () => {
-  //         deleteItem(index);
-  //       };
+      deleteButtonElement.onclick = () => {
+        deleteItem(index);
+      };
 
-  //       if (item.checked) {
-  //         $(descriptionElement).css({ "text-decoration-line": "line-through" });
-  //       }
+      if (item.checked) {
+        $(descriptionElement).css({ "text-decoration-line": "line-through" });
+      }
 
-  //       tasksContainer.append(itemElement);
-  //     });
-  //   }
+      tasksContainer.append(itemElement);
+    });
+  }
 
   // *****************************************
 
@@ -130,18 +130,26 @@ $(document).ready(() => {
   // list functions
 
   function addList(name) {
-    // add temp
-    // add localhost
-    // render
     lists.unshift({ name, list: [] });
+    renderAllLists();
     setLists(lists);
   }
-  function deleteList() {}
-  function editList() {}
+
+  function deleteList(index) {
+    lists = lists.filter((_, i) => i != index);
+    renderAllLists();
+    setLists(lists);
+  }
+
+  function updateListData() {}
+
+  let currentListIndex = null;
+  //   currentListIndex
 
   function renderAllLists() {
     listsContainer.empty();
-    lists.forEach((list) => {
+
+    lists.forEach((list, index) => {
       const listElement = listTemplate.content.cloneNode(true);
 
       const listEditInputElement =
@@ -155,9 +163,39 @@ $(document).ready(() => {
       const listDeleteButtonElement = listElement.querySelector(
         ".list-delete-button"
       );
+
       listNameElement.innerText = list?.name;
 
-      $(listElement).on("click", () => {});
+      let isListInEditMode = false;
+      $(listEditButtonElement).on("click", () => {
+        isListInEditMode = !isListInEditMode;
+
+        if (isListInEditMode) {
+          $(listEditInputElement).val(list?.name);
+          $(listEditInputElement).css({ display: "block" });
+          $(listNameElement).css({ display: "none" });
+        } else {
+          const inputValue = $(listEditInputElement).val();
+          if (inputValue) {
+            // updateListData()
+          }
+          $(listEditInputElement).css({ display: "none" });
+          $(listNameElement).css({ display: "block" });
+          renderAllLists();
+        }
+      });
+
+      $(listDeleteButtonElement).on("click", () => {
+        deleteList(index);
+      });
+
+      $(listNameElement)
+        .parent()
+        .on("click", () => {
+          currentListIndex = index;
+          //   renderTasks(lists[currentListIndex]);
+          //   console.log(index);
+        });
 
       listsContainer.append(listElement);
     });

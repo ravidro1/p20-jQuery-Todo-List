@@ -19,10 +19,13 @@
     <input id="new-task-input" type="text" placeholder="New Task..." />
     <button id="add-task-button">Add Task</button>
 
-    <div id="lists-container"></div>
-    <div id="tasks-container"></div>
+    <div
+      style="border: 4px green solid; display: flex; flex-wrap: wrap"
+      id="lists-container"
+    ></div>
+    <div style="border: 4px yellow solid" id="tasks-container"></div>
     <template id="list-template">
-      <div class="list">
+      <div style="border: 3px red solid; margin: 15px" class="list">
         <p class="list-text"></p>
         <input style="display: none" type="text" class="list-edit-input" />
         <button class="list-edit-button">Edit</button>
