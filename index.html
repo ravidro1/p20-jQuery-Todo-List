@@ -12,18 +12,30 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <h1>TODO List</h1>
-    <input id="new-list-input" type="text" placeholder="New List..." />
-    <button id="add-list-button">Add List</button>
-    <br />
-    <input id="new-task-input" type="text" placeholder="New Task..." />
-    <button id="add-task-button">Add Task</button>
+    <main>
+      <h1>TODO List</h1>
+      <section>
+        <input id="new-list-input" type="text" placeholder="New List..." />
+        <button id="add-list-button">Add List</button>
 
-    <div
-      style="border: 4px green solid; display: flex; flex-wrap: wrap"
-      id="lists-container"
-    ></div>
-    <div style="border: 4px yellow solid" id="tasks-container"></div>
+        <div
+          style="border: 4px green solid; display: flex; flex-wrap: wrap"
+          id="lists-container"
+        ></div>
+      </section>
+      <section>
+        <input
+          style="display: none"
+          id="new-task-input"
+          type="text"
+          placeholder="New Task..."
+        />
+        <button style="display: none" id="add-task-button">Add Task</button>
+
+        <div style="border: 4px yellow solid" id="tasks-container"></div>
+      </section>
+    </main>
+
     <template id="list-template">
       <div style="border: 3px red solid; margin: 15px" class="list">
         <p class="list-text"></p>
@@ -33,13 +45,13 @@
       </div>
     </template>
 
-    <template id="item-template">
-      <div class="item">
-        <input type="checkbox" class="item-checkbox" />
-        <input style="display: none" type="text" class="item-edit-input" />
-        <p class="item-text"></p>
-        <button class="item-edit-button">Edit</button>
-        <button class="item-delete-button">Delete</button>
+    <template id="task-template">
+      <div class="task">
+        <input type="checkbox" class="task-checkbox" />
+        <input style="display: none" type="text" class="task-edit-input" />
+        <p class="task-text"></p>
+        <button class="task-edit-button">Edit</button>
+        <button class="task-delete-button">Delete</button>
       </div>
     </template>
   </body>

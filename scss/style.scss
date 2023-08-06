@@ -4,6 +4,7 @@
   outline: none;
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
+  margin: 0;
 }
 
 body {
@@ -11,10 +12,17 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  // flex-direction: column;
   // justify-content: center;
   align-items: center;
 }
 
-.item {
+.task {
   display: flex;
 }
