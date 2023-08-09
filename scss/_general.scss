@@ -112,8 +112,10 @@ main {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 
+    background: $delete-and-edit-buttons-background;
+    color: white;
     &:hover {
-      background-color: #000;
+      background-color: mix(#fff, $delete-and-edit-buttons-background, 20);
     }
   }
 }
