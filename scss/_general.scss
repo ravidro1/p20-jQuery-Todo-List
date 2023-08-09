@@ -82,6 +82,10 @@ main {
   margin-inline: 5px;
   background-color: $delete-and-edit-buttons-background;
   border-radius: 5px;
+
+  &:hover {
+    background-color: mix(#fff, $delete-and-edit-buttons-background, 20);
+  }
 }
 
 .input-container {

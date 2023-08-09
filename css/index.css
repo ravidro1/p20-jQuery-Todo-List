@@ -78,6 +78,9 @@ main {
   background-color: #1f6e8c;
   border-radius: 5px;
 }
+.delete-and-edit-buttons:hover {
+  background-color: #4c8ba3;
+}
 
 .input-container {
   display: flex;
@@ -127,6 +130,10 @@ main {
   justify-content: space-between;
   background-color: #d2e2e8;
   border-radius: 10px;
+}
+.lists-section .list input {
+  background-color: transparent;
+  width: 60%;
 }
 
 .tasks-section {
