@@ -15,7 +15,7 @@
     <h1>TODO List</h1>
     <main>
       <section class="lists-section">
-        <div class="input-container">
+        <form onsubmit="preventDefault()" class="input-container">
           <input
             id="new-list-input"
             class="input-field"
@@ -25,22 +25,25 @@
           <button class="input-text" id="add-list-button">
             <img src="icons/add.svg" alt="edit" width="100%" height="100%" />
           </button>
-        </div>
+        </form>
 
         <div id="lists-container"></div>
       </section>
       <section class="tasks-section">
-        <h2>List:</h2>
-        <input
-          class="input-field"
-          style="display: none"
-          id="new-task-input"
-          type="text"
-          placeholder="New Task..."
-        />
-        <button class="input-text" style="display: none" id="add-task-button">
-          Add Task
-        </button>
+        <h2 id="list-name-headline-in-tasks-section"></h2>
+
+        <form onsubmit="preventDefault()" class="input-container">
+          <input
+            style="display: none"
+            id="new-task-input"
+            class="input-field"
+            type="text"
+            placeholder="New Task..."
+          />
+          <button style="display: none" class="input-text" id="add-task-button">
+            Add Task
+          </button>
+        </form>
 
         <div id="tasks-container"></div>
       </section>
@@ -69,7 +72,10 @@
     <template id="task-template">
       <div class="task">
         <input style="display: none" type="text" class="task-edit-input" />
-        <p class="task-text"></p>
+        <div class="description-container">
+          <input type="checkbox" class="task-checkbox" />
+          <p class="task-text"></p>
+        </div>
         <div class="buttons-area">
           <button class="task-edit-button delete-and-edit-buttons">
             <img src="icons/edit.svg" alt="edit" width="100%" height="100%" />
@@ -83,7 +89,6 @@
             />
           </button>
         </div>
-        <input type="checkbox" class="task-checkbox" />
       </div>
     </template>
   </body>

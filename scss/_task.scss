@@ -1,13 +1,51 @@
 .tasks-section {
   background: #27374d;
   width: 45%;
-  min-height: 80vh;
+  height: 80vh;
   padding: 20px;
   margin: 20px;
   border-radius: 20px;
   border: 1px solid #fff;
+  display: flex;
+  flex-direction: column;
+
+  #tasks-container {
+    width: 100%;
+    overflow-y: auto;
+    height: 80%;
+  }
 
   .task {
     display: flex;
+    background-color: aqua;
+    width: 100%;
+
+    margin-block: 5px;
+    font-size: x-large;
+    padding: 5px 10px;
+    height: 10%;
+    // text-decoration: underline;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: $item-background;
+
+    input[type="text"] {
+      background-color: transparent;
+      width: 70%;
+    }
+
+    .description-container {
+      display: flex;
+      width: 70%;
+
+      p {
+        width: 95%;
+      }
+
+      input[type="checkbox"] {
+        width: 7%;
+        margin-inline: 5px;
+      }
+    }
   }
 }

@@ -1,4 +1,8 @@
 $(document).ready(() => {
+  $("form").click((event) => {
+    event.preventDefault();
+  });
+
   // localStorage functions
   function setLists(arg_lists) {
     const stringifyLists = JSON.stringify(arg_lists);
@@ -15,27 +19,46 @@ $(document).ready(() => {
   const addListButton = $("#add-list-button");
   const newListInput = $("#new-list-input");
 
+  const listNameHeadlineInTasksSection = $(
+    "#list-name-headline-in-tasks-section"
+  );
   const tasksContainer = $("#tasks-container");
   const taskTemplate = $("#task-template")[0];
   const addTaskButton = $("#add-task-button");
   const newTaskInput = $("#new-task-input");
 
   let lists = getLists();
-  // TODO: need to fix the problem with current index
-  let currentListIndex = null;
-  const getCurrentList = () => {
-    if (currentListIndex == null) return null;
-    return lists[currentListIndex].list;
+  let currentListID = null;
+
+  const getCurrentListObject = () => {
+    if (currentListID == null) return null;
+    return lists.find((list) => list.id == currentListID);
   };
+  const getCurrentList = () => {
+    if (currentListID == null) return null;
+    return lists.find((list) => list.id == currentListID).list;
+  };
+
+  function getIdCount() {
+    let tempIdCount = 0;
+    lists.forEach((list) => {
+      if (list.id > tempIdCount) tempIdCount = list.id + 1;
+    });
+
+    return tempIdCount;
+  }
+  let idCount = getIdCount();
 
   renderAllLists();
 
   function listChanged(listElement) {
     const currentList = getCurrentList();
+    const currentListObject = getCurrentListObject();
 
     if (currentList == null) {
       newTaskInput.css({ display: "none" });
       addTaskButton.css({ display: "none" });
+      listNameHeadlineInTasksSection.text("");
       return;
     }
 
@@ -45,22 +68,36 @@ $(document).ready(() => {
     listsContainer.children().each((_, element) => {
       $(element).css({ backgroundColor: "" });
     });
-    listElement.css({ backgroundColor: "#fff" });
+
+    listElement.css({ backgroundColor: "#EEEEEE" });
+
+    listNameHeadlineInTasksSection.text(currentListObject.name);
 
     renderTasks(currentList);
   }
 
   // list functions
+  function checkUniqueListName(name) {
+    let isUnique = true;
+    lists.forEach((list) => {
+      if (name == list.name) isUnique = false;
+    });
+
+    return isUnique;
+  }
+
   function addList(name) {
-    lists.unshift({ name, list: [] });
+    lists.unshift({ name, list: [], id: idCount++ });
     renderAllLists();
     setLists(lists);
   }
 
-  function deleteList(index) {
-    lists = lists.filter((_, i) => i != index);
+  function deleteList(listID) {
+    lists = lists.filter((list) => list.id != listID);
+    currentListID = null;
     renderAllLists();
     setLists(lists);
+    renderTasks(null);
   }
 
   function updateListName(list, newName) {
@@ -71,7 +108,7 @@ $(document).ready(() => {
   function renderAllLists() {
     listsContainer.empty();
 
-    lists.forEach((list, index) => {
+    lists.forEach((list) => {
       const listElementClone = listTemplate.content.cloneNode(true);
 
       const listEditInputElement =
@@ -98,27 +135,32 @@ $(document).ready(() => {
           $(listEditInputElement).val(list?.name);
           $(listEditInputElement).css({ display: "block" });
           $(listNameElement).css({ display: "none" });
+          $(listEditInputElement).focus();
         } else {
           const inputValue = $(listEditInputElement).val();
           if (inputValue) {
-            updateListName(lists[index], inputValue);
+            if (!checkUniqueListName(inputValue)) {
+              alert("This name already in use");
+            } else {
+              updateListName(list, inputValue);
+            }
           }
           $(listEditInputElement).css({ display: "none" });
           $(listNameElement).css({ display: "block" });
           renderAllLists();
         }
       });
+
       $(listDeleteButtonElement).on("click", () => {
-        deleteList(index);
-        currentListIndex = null;
+        deleteList(list.id);
         listChanged(listElement);
       });
 
-      if (currentListIndex == index)
-        listElement.css({ backgroundColor: "#fff" });
+      if (currentListID == list.id)
+        listElement.css({ backgroundColor: "#EEEEEE" });
 
       listElement.on("click", () => {
-        currentListIndex = index;
+        currentListID = list.id;
         listChanged(listElement);
       });
 
@@ -136,6 +178,9 @@ $(document).ready(() => {
   addListButton.on("click", () => {
     if (!newListInputValue) {
       alert("Input can not be empty");
+      return;
+    } else if (!checkUniqueListName(newListInputValue)) {
+      alert("This name already in use");
       return;
     }
     addList(newListInputValue);
@@ -158,9 +203,9 @@ $(document).ready(() => {
   }
 
   function deleteTask(index) {
-    lists[currentListIndex].list = getCurrentList().filter(
-      (_, i) => index != i
-    );
+    lists.find((list) => list.id == currentListID).list =
+      getCurrentList().filter((_, i) => index != i);
+
     setLists(lists);
     renderTasks(getCurrentList());
   }
@@ -174,11 +219,17 @@ $(document).ready(() => {
   function renderTasks(list) {
     tasksContainer.empty();
 
+    if (list == null) return;
+
     list.forEach((task, index) => {
       const taskElement = taskTemplate.content.cloneNode(true);
 
+      const descriptionContainerElement = taskElement.querySelector(
+        ".description-container"
+      );
       const checkedElement = taskElement.querySelector(".task-checkbox");
       const descriptionElement = taskElement.querySelector(".task-text");
+
       const editInputElement = taskElement.querySelector(".task-edit-input");
       const editButtonElement = taskElement.querySelector(".task-edit-button");
       const deleteButtonElement = taskElement.querySelector(
@@ -200,13 +251,17 @@ $(document).ready(() => {
         isInEditMode = !isInEditMode;
 
         if (isInEditMode) {
-          $(descriptionElement).css({ display: "none" });
+          // $(descriptionElement).css({ display: "none" });
+          // $(checkedElement).css({ display: "none" });
+          $(descriptionContainerElement).css({ display: "none" });
           $(editInputElement).css({ display: "block" });
           $(editInputElement).on("input", (e) => {
             editInputValue = e.target.value;
           });
         } else {
-          $(descriptionElement).css({ display: "block" });
+          // $(descriptionElement).css({ display: "block" });
+          // $(checkedElement).css({ display: "block" });
+          $(descriptionContainerElement).css({ display: "" });
           $(editInputElement).css({ display: "none" });
           if (editInputValue) {
             updateTask(task, "description", editInputValue);
