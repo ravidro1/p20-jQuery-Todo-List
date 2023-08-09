@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/index.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>jQuery TODO List</title>
@@ -12,46 +12,75 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+    <h1>TODO List</h1>
     <main>
-      <h1>TODO List</h1>
-      <section>
-        <input id="new-list-input" type="text" placeholder="New List..." />
-        <button id="add-list-button">Add List</button>
+      <section class="lists-section">
+        <div class="input-container">
+          <input
+            id="new-list-input"
+            class="input-field"
+            type="text"
+            placeholder="New List..."
+          />
+          <button class="input-text" id="add-list-button">Add List</button>
+        </div>
 
-        <div
-          style="border: 4px green solid; display: flex; flex-wrap: wrap"
-          id="lists-container"
-        ></div>
+        <div id="lists-container"></div>
       </section>
-      <section>
+      <section class="tasks-section">
         <input
+          class="input-field"
           style="display: none"
           id="new-task-input"
           type="text"
           placeholder="New Task..."
         />
-        <button style="display: none" id="add-task-button">Add Task</button>
+        <button class="input-text" style="display: none" id="add-task-button">
+          Add Task
+        </button>
 
-        <div style="border: 4px yellow solid" id="tasks-container"></div>
+        <div id="tasks-container"></div>
       </section>
     </main>
 
     <template id="list-template">
-      <div style="border: 3px red solid; margin: 15px" class="list">
+      <div class="list">
         <p class="list-text"></p>
         <input style="display: none" type="text" class="list-edit-input" />
-        <button class="list-edit-button">Edit</button>
-        <button class="list-delete-button">Delete</button>
+        <div class="buttons-area">
+          <button class="list-edit-button delete-and-edit-buttons">
+            <img src="icons/edit.svg" alt="edit" width="100%" height="100%" />
+          </button>
+          <button class="list-delete-button delete-and-edit-buttons">
+            <img
+              src="icons/delete.svg"
+              alt="delete"
+              width="100%"
+              height="100%"
+            />
+          </button>
+        </div>
       </div>
     </template>
 
     <template id="task-template">
       <div class="task">
-        <input type="checkbox" class="task-checkbox" />
         <input style="display: none" type="text" class="task-edit-input" />
         <p class="task-text"></p>
-        <button class="task-edit-button">Edit</button>
-        <button class="task-delete-button">Delete</button>
+        <div class="buttons-area">
+          <button class="task-edit-button delete-and-edit-buttons">
+            <img src="icons/edit.svg" alt="edit" width="100%" height="100%" />
+          </button>
+          <button class="task-delete-button delete-and-edit-buttons">
+            <img
+              src="icons/delete.svg"
+              alt="delete"
+              width="100%"
+              height="100%"
+            />
+          </button>
+        </div>
+        <input type="checkbox" class="task-checkbox" />
       </div>
     </template>
   </body>

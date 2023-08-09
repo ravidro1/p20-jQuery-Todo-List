@@ -21,6 +21,7 @@ $(document).ready(() => {
   const newTaskInput = $("#new-task-input");
 
   let lists = getLists();
+  // TODO: need to fix the problem with current index
   let currentListIndex = null;
   const getCurrentList = () => {
     if (currentListIndex == null) return null;
@@ -29,7 +30,7 @@ $(document).ready(() => {
 
   renderAllLists();
 
-  function listChanged() {
+  function listChanged(listElement) {
     const currentList = getCurrentList();
 
     if (currentList == null) {
@@ -40,6 +41,11 @@ $(document).ready(() => {
 
     newTaskInput.css({ display: "block" });
     addTaskButton.css({ display: "block" });
+
+    listsContainer.children().each((_, element) => {
+      $(element).css({ backgroundColor: "" });
+    });
+    listElement.css({ backgroundColor: "#fff" });
 
     renderTasks(currentList);
   }
@@ -66,27 +72,28 @@ $(document).ready(() => {
     listsContainer.empty();
 
     lists.forEach((list, index) => {
-      const listElement = listTemplate.content.cloneNode(true);
+      const listElementClone = listTemplate.content.cloneNode(true);
 
       const listEditInputElement =
-        listElement.querySelector(".list-edit-input");
+        listElementClone.querySelector(".list-edit-input");
 
-      const listNameElement = listElement.querySelector(".list-text");
+      const listNameElement = listElementClone.querySelector(".list-text");
 
       const listEditButtonElement =
-        listElement.querySelector(".list-edit-button");
+        listElementClone.querySelector(".list-edit-button");
 
-      const listDeleteButtonElement = listElement.querySelector(
+      const listDeleteButtonElement = listElementClone.querySelector(
         ".list-delete-button"
       );
 
       listNameElement.innerText = list?.name;
+      const listElement = $(listNameElement).parent();
 
       let isListInEditMode = false;
 
       $(listEditButtonElement).on("click", () => {
         isListInEditMode = !isListInEditMode;
-        
+
         if (isListInEditMode) {
           $(listEditInputElement).val(list?.name);
           $(listEditInputElement).css({ display: "block" });
@@ -101,19 +108,19 @@ $(document).ready(() => {
           renderAllLists();
         }
       });
-
       $(listDeleteButtonElement).on("click", () => {
         deleteList(index);
         currentListIndex = null;
-        listChanged();
+        listChanged(listElement);
       });
 
-      $(listNameElement)
-        .parent()
-        .on("click", () => {
-          currentListIndex = index;
-          listChanged();
-        });
+      if (currentListIndex == index)
+        listElement.css({ backgroundColor: "#fff" });
+
+      listElement.on("click", () => {
+        currentListIndex = index;
+        listChanged(listElement);
+      });
 
       listsContainer.append(listElement);
     });
