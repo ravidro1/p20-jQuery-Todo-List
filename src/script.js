@@ -73,7 +73,7 @@ $(document).ready(() => {
       $(element).css({ backgroundColor: "" });
     });
 
-    listElement.css({ backgroundColor: "#EEEEEE" });
+    listElement?.css({ backgroundColor: "#EEEEEE" });
 
     listNameHeadlineInTasksSection.text(currentListObject.name);
 
@@ -107,6 +107,7 @@ $(document).ready(() => {
   function updateListName(list, newName) {
     list.name = newName;
     setLists(lists);
+    listChanged(null);
   }
 
   function renderAllLists() {

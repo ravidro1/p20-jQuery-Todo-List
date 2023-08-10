@@ -31,6 +31,9 @@ h1 {
 h2 {
   color: #eeeeee;
   margin-block: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 p {
