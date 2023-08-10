@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="css/index.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>jQuery TODO List</title>
-    <script
+    <!-- <script
       type="text/javascript"
       src="http://code.jquery.com/jquery-latest.min.js"
-    ></script>
-    <script src="script.js" defer></script>
+    ></script> -->
+    <!-- <script src="script.js" defer></script>  -->
   </head>
   <body>
     <h1>TODO List</h1>
+
     <main>
       <section class="lists-section">
-        <form onsubmit="preventDefault()" class="input-container">
+        <form class="input-container">
           <input
             id="new-list-input"
             class="input-field"
@@ -23,7 +23,7 @@
             placeholder="New List..."
           />
           <button class="input-text" id="add-list-button">
-            <img src="icons/add.svg" alt="edit" width="100%" height="100%" />
+            <img src="./assets/add.svg" alt="edit" width="100%" height="100%" />
           </button>
         </form>
 
@@ -32,7 +32,7 @@
       <section class="tasks-section">
         <h2 id="list-name-headline-in-tasks-section"></h2>
 
-        <form onsubmit="preventDefault()" class="input-container">
+        <form class="input-container">
           <input
             style="display: none"
             id="new-task-input"
@@ -55,11 +55,16 @@
         <input style="display: none" type="text" class="list-edit-input" />
         <div class="buttons-area">
           <button class="list-edit-button delete-and-edit-buttons">
-            <img src="icons/edit.svg" alt="edit" width="100%" height="100%" />
+            <img
+              src="./assets/icons/edit.svg"
+              alt="edit"
+              width="100%"
+              height="100%"
+            />
           </button>
           <button class="list-delete-button delete-and-edit-buttons">
             <img
-              src="icons/delete.svg"
+              src="./assets/icons/delete.svg"
               alt="delete"
               width="100%"
               height="100%"
@@ -78,11 +83,16 @@
         </div>
         <div class="buttons-area">
           <button class="task-edit-button delete-and-edit-buttons">
-            <img src="icons/edit.svg" alt="edit" width="100%" height="100%" />
+            <img
+              src="./assets/icons/edit.svg"
+              alt="edit"
+              width="100%"
+              height="100%"
+            />
           </button>
           <button class="task-delete-button delete-and-edit-buttons">
             <img
-              src="icons/delete.svg"
+              src="./assets/icons/delete.svg"
               alt="delete"
               width="100%"
               height="100%"

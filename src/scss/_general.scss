@@ -89,7 +89,7 @@ main {
   border-radius: 5px;
 
   &:hover {
-    background-color: mix(#fff, $delete-and-edit-buttons-background, 20);
+    background-color: mix(#fff, $delete-and-edit-buttons-background, 20%);
   }
 }
 
@@ -115,7 +115,7 @@ main {
     background: $delete-and-edit-buttons-background;
     color: white;
     &:hover {
-      background-color: mix(#fff, $delete-and-edit-buttons-background, 20);
+      background-color: mix(#fff, $delete-and-edit-buttons-background, 20%);
     }
   }
 }

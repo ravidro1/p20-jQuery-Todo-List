@@ -1,3 +1,5 @@
+import "./scss/index.scss";
+
 $(document).ready(() => {
   $("form").click((event) => {
     event.preventDefault();
@@ -30,15 +32,6 @@ $(document).ready(() => {
   let lists = getLists();
   let currentListID = null;
 
-  const getCurrentListObject = () => {
-    if (currentListID == null) return null;
-    return lists.find((list) => list.id == currentListID);
-  };
-  const getCurrentList = () => {
-    if (currentListID == null) return null;
-    return lists.find((list) => list.id == currentListID).list;
-  };
-
   function getIdCount() {
     let tempIdCount = 0;
     lists.forEach((list) => {
@@ -48,6 +41,17 @@ $(document).ready(() => {
     return tempIdCount;
   }
   let idCount = getIdCount();
+
+  const getCurrentListObject = () => {
+    if (currentListID == null) return null;
+    return lists.find((list) => list.id == currentListID);
+  };
+
+  const getCurrentList = () => {
+    const CurrentListObject = getCurrentListObject();
+    if (CurrentListObject == null) return null;
+    return CurrentListObject.list;
+  };
 
   renderAllLists();
 
