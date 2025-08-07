@@ -1,37 +1,94 @@
 .tasks-section {
-  background: #27374d;
-  width: 45%;
-  height: 80vh;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 20px;
-  border: 1px solid #fff;
+  flex: 1;
+  height: 100%;
+  width: 70%;
+  padding: 80px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+
+  h2 {
+    color: #323b4c;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    align-items: center;
+    text-overflow: ellipsis;
+    margin-block: auto;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    input[type="text"] {
+      height: 48px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      flex: 1;
+    }
+
+    button {
+      background: $item-background;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      color: white;
+      padding-inline: 16px;
+    }
+  }
 
   #tasks-container {
     width: 100%;
     overflow-y: auto;
-    height: 80%;
+    flex: 1;
+    overflow-x: hidden;
   }
 
   .task {
     display: flex;
-    background-color: aqua;
     width: 100%;
-
+    position: relative;
     margin-block: 5px;
     font-size: x-large;
     padding: 5px 10px;
-    height: 10%;
-    // text-decoration: underline;
+    height: 64;
+    flex-shrink: 0;
+
     justify-content: space-between;
     border-radius: 10px;
     background-color: $item-background;
 
-    input[type="text"] {
-      background-color: transparent;
-      width: 70%;
+    .buttons-area {
+      max-width: fit-content;
+      max-height: fit-content;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      height: 100%;
+      transform: translateX(110%);
+      transition: transform 0.4s;
+      gap: 8px;
+      padding: 8px;
+
+      button {
+        background: $item-text-color;
+        padding: 0;
+        height: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        overflow: hidden;
+        color: $item-background;
+        cursor: pointer;
+      }
+    }
+
+    &:hover > .buttons-area {
+      transform: translateX(0%);
     }
 
     .description-container {
@@ -43,8 +100,8 @@
       }
 
       input[type="checkbox"] {
-        width: 7%;
-        margin-inline: 5px;
+        width: 16px;
+        margin-inline: 8px;
       }
     }
   }

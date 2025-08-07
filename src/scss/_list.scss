@@ -1,28 +1,62 @@
 .lists-section {
   background: $list-section-background;
-  width: 25%;
-  height: 45vh;
+  width: 30%;
+  flex-shrink: 0;
+  height: 100%;
   padding: 20px;
-  margin: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
-  border: 1px solid #fff;
+  gap: 16px;
+
+  form {
+    width: 100%;
+
+    .input-container {
+      margin-top: 4px;
+      display: flex;
+      width: 100%;
+      height: 48px;
+
+      #new-list-input {
+        width: 80%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+
+      #add-list-button {
+        width: 20%;
+        height: 100%;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        background: $item-background;
+        color: white;
+        &:hover {
+          background-color: mix(#fff, $item-background, 20%);
+        }
+      }
+    }
+  }
 
   #lists-container {
     width: 100%;
-    height: 90%;
     overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .list {
+    position: relative;
     display: flex;
-    margin-block: 5px;
     font-size: large;
     padding: 5px 10px;
-    height: 15%;
-    // text-decoration: underline;
+    height: 56px;
+    flex-shrink: 0;
     justify-content: space-between;
     background-color: $item-background;
     border-radius: 10px;
@@ -30,6 +64,38 @@
     input {
       background-color: transparent;
       width: 60%;
+    }
+
+    .buttons-area {
+      max-width: fit-content;
+      max-height: fit-content;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      height: 100%;
+      transform: translateX(110%);
+      transition: transform 0.4s;
+      gap: 8px;
+      padding: 8px;
+
+      button {
+        background: $item-text-color;
+        padding: 0;
+        height: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        overflow: hidden;
+        color: $item-background;
+        cursor: pointer;
+      }
+    }
+
+    &:hover > .buttons-area {
+      transform: translateX(0%);
     }
   }
 }

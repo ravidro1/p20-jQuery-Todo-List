@@ -1,34 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>jQuery TODO List</title>
-    <!-- <script
-      type="text/javascript"
-      src="http://code.jquery.com/jquery-latest.min.js"
-    ></script> -->
-    <!-- <script src="script.js" defer></script>  -->
-  </head>
-  <body>
-    <h1>TODO List</h1>
 
-    <main>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Heebo:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-/.../..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <main id="main-container">
       <section class="lists-section">
-        <form class="input-container">
-          <input
-            id="new-list-input"
-            class="input-field"
-            type="text"
-            placeholder="New List..."
-          />
-          <button class="input-text" id="add-list-button">
-            <img src="./assets/add.svg" alt="edit" width="100%" height="100%" />
-          </button>
+        <div style="margin-bottom: 24px">
+          <h1>MY TODO LIST</h1>
+          <hr />
+        </div>
+        <h2>All Lists</h2>
+        <form>
+          <label style="color: #bdbdbd" for="">add list:</label>
+          <div class="input-container">
+            <input id="new-list-input" type="text" placeholder="New List..." />
+            <button id="add-list-button">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
         </form>
 
         <div id="lists-container"></div>
       </section>
+
       <section class="tasks-section">
         <h2 id="list-name-headline-in-tasks-section"></h2>
 
@@ -40,6 +52,7 @@
             type="text"
             placeholder="New Task..."
           />
+          <!-- <textarea name="description" id=""></textarea> -->
           <button style="display: none" class="input-text" id="add-task-button">
             Add Task
           </button>
@@ -48,58 +61,5 @@
         <div id="tasks-container"></div>
       </section>
     </main>
-
-    <template id="list-template">
-      <div class="list">
-        <p class="list-text"></p>
-        <input style="display: none" type="text" class="list-edit-input" />
-        <div class="buttons-area">
-          <button class="list-edit-button delete-and-edit-buttons">
-            <img
-              src="./assets/icons/edit.svg"
-              alt="edit"
-              width="100%"
-              height="100%"
-            />
-          </button>
-          <button class="list-delete-button delete-and-edit-buttons">
-            <img
-              src="./assets/icons/delete.svg"
-              alt="delete"
-              width="100%"
-              height="100%"
-            />
-          </button>
-        </div>
-      </div>
-    </template>
-
-    <template id="task-template">
-      <div class="task">
-        <input style="display: none" type="text" class="task-edit-input" />
-        <div class="description-container">
-          <input type="checkbox" class="task-checkbox" />
-          <p class="task-text"></p>
-        </div>
-        <div class="buttons-area">
-          <button class="task-edit-button delete-and-edit-buttons">
-            <img
-              src="./assets/icons/edit.svg"
-              alt="edit"
-              width="100%"
-              height="100%"
-            />
-          </button>
-          <button class="task-delete-button delete-and-edit-buttons">
-            <img
-              src="./assets/icons/delete.svg"
-              alt="delete"
-              width="100%"
-              height="100%"
-            />
-          </button>
-        </div>
-      </div>
-    </template>
   </body>
 </html>

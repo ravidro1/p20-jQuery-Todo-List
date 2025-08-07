@@ -1,8 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -15,15 +14,15 @@ module.exports = {
   },
   devtool: "source-map",
   devServer: {
-    watchFiles: ["src/**/*"],
     static: {
       directory: path.resolve(__dirname, "dist"),
     },
-    port: "3500",
+    port: 3500,
     open: true,
     hot: true,
     compress: true,
     historyApiFallback: true,
+    watchFiles: ["src/**/*"],
   },
   module: {
     rules: [
@@ -33,65 +32,36 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_nodules/,
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
+          options: { presets: ["@babel/preset-env"] },
         },
       },
-
-      // {
-      //   test: /\.(png|svg|jpg|jpeg)$/i,
-      // use: [
-      //   {
-      //     loader: "file-loader",
-      //     options: {
-      //       name: "[name].[ext]",
-      //       outputPath: "assets/",
-      //       publicPath: "assets/",
-      //     },
-      //   },
-      // ],
-      //   type: "asset/resource",
-      // },
-      // {
-      //   test: /\.(png|svg|jpg|jpeg)$/i,
-      //   use: "file-loader",
-      // },
       {
-        test: /\.(jpg|jpeg|png|gif|pdf|ico|svg)$/,
-        // use: [
-        // {
-        // loader: "file-loader",
-        // options: {
-        //   name: "assets/[name].[ext]",
-        // },
-        // },
-        // ],
+        test: /\.(jpg|jpeg|png|gif|svg|ico)$/,
         type: "asset/resource",
       },
       {
         test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-            options: {
-              minimize: true,
-            },
-          },
-        ],
+        use: "html-loader",
       },
     ],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "public/templates"),
+          to: "templates", // will be available at /templates/
+        },
+      ],
+    }),
     new webpack.ProvidePlugin({ $: "jquery" }),
     new HtmlWebpackPlugin({
-      // title: "title webpack",
       filename: "index.html",
       template: "src/index.html",
+      favicon: "public/favicon.png",
     }),
-    // new BundleAnalyzerPlugin(),
   ],
 };

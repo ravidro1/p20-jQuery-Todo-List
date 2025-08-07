@@ -2,7 +2,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "build1": "webpack",
-    "dev": "webpack serve --mode development"
+    "dev": "webpack serve --mode development --stats-children"
   },
   "dependencies": {
     "jquery": "^3.7.0"
@@ -11,6 +11,7 @@
     "@babel/core": "^7.22.10",
     "@babel/preset-env": "^7.22.10",
     "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^6.8.1",
     "file-loader": "^6.2.0",
     "gulp": "^4.0.2",
