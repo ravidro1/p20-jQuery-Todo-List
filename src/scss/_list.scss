@@ -99,3 +99,16 @@
     }
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .lists-section {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 750px) {
+  .lists-section {
+    width: 100%;
+    min-height: 560px;
+    height: 50vh;
+  }
+}

@@ -106,3 +106,16 @@
     }
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .tasks-section {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 750px) {
+  .tasks-section {
+    width: 100%;
+    min-height: 560px;
+    height: 50vh;
+  }
+}

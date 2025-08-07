@@ -52,7 +52,7 @@ function listChanged(element) {
   const taskOfCurrentList = getTaskOfCurrentList();
   const listObject = getCurrentListObject();
 
-  if (!currentListID) {
+  if (currentListID == null) {
     newTaskInput.hide();
     addTaskButton.hide();
     listNameHeadlineInTasksSection.text("");
