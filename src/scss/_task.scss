@@ -17,19 +17,21 @@
     margin-block: auto;
   }
 
-  form {
+  .task-form {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: 48px;
 
-    input[type="text"] {
-      height: 48px;
+    input {
+      height: 100%;
       border-top-left-radius: 8px;
       border-bottom-left-radius: 8px;
       flex: 1;
     }
 
     button {
+      height: 100%;
       background: $item-background;
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
